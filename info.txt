@@ -1,0 +1,17 @@
+FULL STACK/
+├── backend/
+├── frontend/
+├── nginx/
+│   └── nginx.conf  # Configuración de Nginx
+├── .env
+├── docker-compose.yml
+└── info
+
+# docker-compose up --build
+
+# docker-compose down
+
+# docker-compose run --rm certbot
+
+# docker-compose exec nginx nginx -s reload
+
