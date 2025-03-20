@@ -7,8 +7,6 @@ Tienes que configurar Nginx para que sirva de proxy inverso para tus contenedore
 
 Crea un archivo de configuración en /etc/nginx/sites-available/ para react.between-bytes.tech y api.between-bytes.tech.
 
-Luego, habilítalos en /etc/nginx/sites-enabled/ creando enlaces simbólicos.
-
 Por ejemplo, para react.between-bytes.tech:
 
 sudo nano /etc/nginx/sites-available/react.between-bytes.tech
@@ -83,7 +81,6 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
-
 
 sudo certbot --nginx -d react.between-bytes.tech -d api.between-bytes.tech
 
