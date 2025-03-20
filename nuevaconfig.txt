@@ -6,8 +6,8 @@ sudo apt install certbot python3-certbot-nginx
 Tienes que configurar Nginx para que sirva de proxy inverso para tus contenedores Docker.
 
 Crea un archivo de configuración en /etc/nginx/sites-available/ para react.between-bytes.tech y api.between-bytes.tech.
-Luego, habilítalos en /etc/nginx/sites-enabled/ creando enlaces simbólicos.
 
+Luego, habilítalos en /etc/nginx/sites-enabled/ creando enlaces simbólicos.
 
 Por ejemplo, para react.between-bytes.tech:
 
@@ -85,6 +85,7 @@ server {
 }
 
 
+sudo certbot --nginx -d react.between-bytes.tech -d api.between-bytes.tech
 
 Habilitar la configuración de Nginx
 
@@ -118,6 +119,21 @@ Verifica que la renovación se haya realizado correctamente:
 sudo systemctl reload nginx
 
 Configura la renovación automáticamente:
+
 sudo systemctl enable certbot.timer
 
 Configurar Docker Composer backend y frontend
+
+
+Estrucutra de archivos
+/etc/letsencrypt/live/
+  ├── react.between-bytes.tech/
+  │   ├── cert.pem        # Certificado del dominio
+  │   ├── chain.pem       # Certificado intermedio
+  │   ├── fullchain.pem   # Certificado completo
+  │   └── privkey.pem     # Clave privada
+  └── api.between-bytes.tech/
+      ├── cert.pem
+      ├── chain.pem
+      ├── fullchain.pem
+      └── privkey.pem
