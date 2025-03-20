@@ -1,0 +1,50 @@
+# version: '3.8'
+
+services:
+  # Servicio de backend (API Node.js)
+  backend:
+    build: ./backend
+    ports:
+      - "3050:3050"
+    networks:
+      - fullstack-network
+
+  # Servicio de frontend (React/Vite)
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"  # Puerto del contenedor expuesto en el puerto 3000
+    networks:
+      - fullstack-network
+    depends_on:
+      - backend
+
+  # Servicio de Nginx para manejar los subdominios
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Usar el archivo nginx.conf desde fuera de frontend
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - fullstack-network
+    depends_on:
+      - frontend
+      - backend
+
+  # Servicio de Certbot para gestionar los certificados SSL
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - fullstack-network
+    command: ["certbot", "certonly", "--standalone", "--preferred-challenges", "http", "--agree-tos", "--no-eff-email", "-m", "tu-email@dominio.com", "-d", "react.between-bytes.tech", "-d", "api.between-bytes.tech"]
+
+networks:
+  fullstack-network:
+    driver: bridge

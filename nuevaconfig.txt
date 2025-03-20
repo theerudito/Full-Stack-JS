@@ -1,0 +1,84 @@
+sudo apt update
+sudo apt install nginx
+
+sudo apt install certbot python3-certbot-nginx
+
+Tienes que configurar Nginx para que sirva de proxy inverso para tus contenedores Docker.
+
+Crea un archivo de configuración en /etc/nginx/sites-available/ para react.between-bytes.tech y api.between-bytes.tech.
+Luego, habilítalos en /etc/nginx/sites-enabled/ creando enlaces simbólicos.
+
+
+Por ejemplo, para react.between-bytes.tech:
+
+sudo nano /etc/nginx/sites-available/react.between-bytes.tech
+
+server {
+    listen 80;
+    server_name react.between-bytes.tech;
+
+    location / {
+        proxy_pass http://frontend:3000;  # Redirige al contenedor frontend
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    return 301 https://$server_name$request_uri;
+}
+
+Por ejemplo api.between-bytes.tech:
+
+sudo nano /etc/nginx/sites-available/api.between-bytes.tech
+
+server {
+    listen 80;
+    server_name api.between-bytes.tech;
+
+    location / {
+        proxy_pass http://backend:3050;  # Redirige al contenedor backend (API)
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    return 301 https://$server_name$request_uri;
+}
+
+Habilitar la configuración de Nginx
+
+sudo ln -s /etc/nginx/sites-available/react.between-bytes.tech /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/api.between-bytes.tech /etc/nginx/sites-enabled/
+
+Verificar la configuración
+
+sudo nginx -t
+
+Si la configuración es correcta, verás un mensaje como:
+
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+
+Usar Certbot para obtener los certificados SSL
+
+sudo certbot --nginx -d react.between-bytes.tech
+sudo certbot --nginx -d api.between-bytes.tech
+
+Verificar la configuración
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+Renovar los certificados automáticamente
+
+sudo certbot renew
+
+Verifica que la renovación se haya realizado correctamente:
+
+sudo systemctl reload nginx
+
+Configura la renovación automáticamente:
+sudo systemctl enable certbot.timer
+
+Configurar Docker Composer backend y frontend

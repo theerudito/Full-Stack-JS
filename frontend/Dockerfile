@@ -1,4 +1,4 @@
-# Usar la imagen base de Node.js
+# Usar la imagen base de Node.js para construir la aplicación
 FROM node:lts-alpine AS build
 
 WORKDIR /app
@@ -15,17 +15,18 @@ COPY . .
 # Construir la aplicación para producción
 RUN npm run build
 
-# Imagen de Nginx para servir el contenido
-FROM nginx:alpine
+# Imagen base de Node.js para producción 
+FROM node:lts-alpine
 
-# Copiar los archivos construidos al contenedor Nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+# Copiar la aplicación construida
+WORKDIR /app
+COPY --from=build /app/dist /app
 
-# No es necesario copiar el archivo nginx.conf aquí, lo gestionaremos en docker-compose.yml
+# Exponer el puerto para el frontend
+EXPOSE 3000
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para iniciar el servidor (puedes usar un servidor simple como http-server)
+CMD ["npx", "http-server", "dist", "-p", "3000"]
 
 
 
