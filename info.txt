@@ -15,3 +15,10 @@ FULL STACK/
 
 # docker-compose exec nginx nginx -s reload
 
+docker-compose run --rm certbot certonly --standalone --preferred-challenges http --agree-tos --no-eff-email -m erudito.dev@gmail.com -d react.between-bytes.tech -d api.between-bytes.tech
+
+react.between-bytes.tech A 82.25.90.182
+api.between-bytes.tech A 82.25.90.182
+
+docker-compose stop nginx
+
