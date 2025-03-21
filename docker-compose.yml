@@ -1,22 +1,23 @@
 services:
-  # Servicio de backend (API Node.js)
+
   backend:
     build: ./backend
     ports:
       - "3050:3050"
     networks:
       - fullstack-network
-
-  # Servicio de frontend (React/Vite servido con http-server)
+    restart: always
+    
   frontend:
-    build: ./frontend # Usamos el Dockerfile corregido del frontend
+    build: ./frontend 
     ports:
-      - "3000:3000" # El puerto expuesto en el contenedor
+      - "3000:3000" 
     networks:
       - fullstack-network
     depends_on:
       - backend
-
+    restart: always
+    
 networks:
   fullstack-network:
     driver: bridge
