@@ -25,8 +25,7 @@ COPY --from=build /app/dist /app
 # Exponer el puerto para el frontend
 EXPOSE 3000
 
-# Comando para iniciar el servidor (puedes usar un servidor simple como http-server)
-CMD ["npx", "http-server", "dist", "-p", "3000"]
-
+# Iniciar la aplicación vite npm run dev
+CMD ["npm", "run", "dev"]
 
 
