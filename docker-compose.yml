@@ -1,5 +1,3 @@
-# version: '3.8'
-
 services:
   # Servicio de backend (API Node.js)
   backend:
@@ -11,9 +9,9 @@ services:
 
   # Servicio de frontend (React/Vite servido con http-server)
   frontend:
-    build: ./frontend  # Usamos el Dockerfile corregido del frontend
+    build: ./frontend # Usamos el Dockerfile corregido del frontend
     ports:
-      - "3000:3000"  # El puerto expuesto en el contenedor
+      - "3000:3000" # El puerto expuesto en el contenedor
     networks:
       - fullstack-network
     depends_on:
