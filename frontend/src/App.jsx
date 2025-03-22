@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [mensaje, setMensaje] = useState("");
-  const url = "http://localhost:3050/";
+  const url = "https://api.between-bytes.tech";
 
   const mostrarMensaje = async () => {
     try {

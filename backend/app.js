@@ -21,5 +21,5 @@ app.get("/", (req, res) => {
 
 // Inicia el servidor
 app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+  console.log(`Servidor corriendo en https://api.between-bytes.tech:${port}`);
 });

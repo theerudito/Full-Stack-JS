@@ -133,9 +133,6 @@ Estrucutra de archivos
       └── privkey.pem
 
 
-dime una cosa yo esto estoy haciendo en una vps lo abri en mi browser la ip de mi vps es http://82.25.90.182:3000/ para react y el http://82.25.90.182:3050 para el backend
-
-
 sudo rm -f /etc/nginx/sites-available/react.between-bytes.tech
 sudo rm -f /etc/nginx/sites-available/api.between-bytes.tech
 sudo rm -f /etc/nginx/sites-enabled/react.between-bytes.tech
