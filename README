@@ -1,3 +1,6 @@
+Node JS + React Vite + Postgres SQL + Nginx + Certbot + Docker + Docker-Compose + Ubuntu 
+
+
 sudo apt update
 sudo apt install nginx
 
