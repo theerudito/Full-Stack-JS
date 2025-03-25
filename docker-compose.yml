@@ -4,25 +4,4 @@ services:
     build: ./backend
     ports:
       - "3050:3050"
-    networks:
-      - fullstack-network
     restart: always
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./src:/app/src
-      - ./public:/app/public
-    environment:
-      - VITE_PORT=3000 # O el puerto que prefieras
-    networks:
-      - fullstack-network
-    depends_on:
-      - backend
-    restart: always
-
-networks:
-  fullstack-network:
-    driver: bridge

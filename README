@@ -12,6 +12,12 @@ Crea un archivo de configuración en /etc/nginx/sites-available/ para react.betw
 
 sudo nginx -t
 
+# crear el directorio para archivos estáticos
+sudo mkdir -p /var/www/react.between-bytes.tech
+
+# copiar los archivos estáticos
+sudo cp -r /home/ubuntu/react-app/build/* /var/www/react.between-bytes.tech/
+
 Por ejemplo, para react.between-bytes.tech:
 
 sudo nano /etc/nginx/sites-available/react.between-bytes.tech
@@ -21,11 +27,8 @@ server {
     server_name react.between-bytes.tech;
 
     location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        root /var/www/react.between-bytes.tech;
+        index index.html;
     }
 
     # Redirige tráfico HTTP a HTTPS
@@ -41,11 +44,8 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/react.between-bytes.tech/privkey.pem;
 
     location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        root /var/www/react.between-bytes.tech;
+        index index.html;
     }
 }
 
