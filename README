@@ -1,3 +1,1 @@
-Node JS + React Vite + Postgres SQL + Nginx + Certbot + Docker + Docker-Compose + Ubuntu 
-
-
+Alojar un sitio web React en un servidor Ubuntu con Nginx + Node JS + PostgreSQL + Certbot
