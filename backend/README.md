@@ -1,4 +1,4 @@
-Configuracion de Nginx para el backend con docker, nodejs, express, postgresql, docker-compose y certbot
+configuracion de Nginx para el backend con docker, nodejs, express, postgresql, docker-compose y certbot
 
 1. Tener instalado docker y docker-compose
 2. Crear un archivo docker-compose.yml
@@ -55,8 +55,9 @@ crear un enlace simbolico en la carpeta /etc/nginx/sites-enabled
 sudo ln -s /etc/nginx/sites-available/tu-sitio.com /etc/nginx/sites-enabled/
 ```
 
-# primero se configura el servidor HTTP y luego el servidor HTTPS
+primero se configura el servidor HTTP y luego el servidor HTTPS
 
+```bash
 server {
 listen 443 ssl;
 server_name api.between-bytes.tech;
@@ -73,7 +74,4 @@ server_name api.between-bytes.tech;
     }
 
 }
-
-```
-
 ```
