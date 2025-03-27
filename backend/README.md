@@ -10,6 +10,52 @@ configuracion de Nginx para el backend con docker, nodejs, express, postgresql, 
 8. Configurar Nginx
 9. Tener Un servidor VPS + instalar Nginx + Certbot + Docker + Docker-compose
 
+crear el archivo Dockerfile
+
+```bash
+FROM node:lts-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3050
+CMD ["npm", "start"]
+```
+
+crear el archvo docker-compose.yml
+
+```bash
+services:
+
+  backend:
+    build: .
+    container_name: backend
+    ports:
+      - "3050:3050"
+    restart: always
+```
+
+crear el archivo .env
+
+```bash
+PORT=3050
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=db
+```
+
+levantar el contenedor
+
+```bash
+docker-compose up -d
+```
+
+detener el contenedor
+
+```bash
+docker-compose down
+```
+
 crear un archivo de configuracion de nginx en la carpeta /etc/nginx/sites-available
 
 ```bash
