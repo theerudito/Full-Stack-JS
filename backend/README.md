@@ -49,6 +49,8 @@ server_name tu-sitio.com;
 }
 ```
 
+Verificar la configuración de Nginx
+
 ```bash
 sudo nginx -t
 ```
