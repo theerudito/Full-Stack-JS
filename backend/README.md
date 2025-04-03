@@ -62,18 +62,6 @@ crear un archivo de configuracion de nginx en la carpeta /etc/nginx/sites-availa
 sudo nano /etc/nginx/sites-available/tu-sitio.com
 ```
 
-Verificar la configuración de Nginx
-
-```bash
-sudo nginx -t
-```
-
-mensaje de salida:
-
-```bash
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
-
 contenido del archivo de configuracion de nginx
 
 ```bash
@@ -167,23 +155,3 @@ Configura la renovación automáticamente:
 sudo systemctl enable certbot.timer
 ```
 
-primero se configura el servidor HTTP y luego el servidor HTTPS
-
-```bash
-server {
-listen 443 ssl;
-server_name tu-sitio.com;
-
-    ssl_certificate /etc/letsencrypt/live/tu-sitio.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/tu-sitio.com/privkey.pem;
-
-    location / {
-        proxy_pass http://localhost:puerto; # ip y puerto del servidor
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-}
-```
